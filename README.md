@@ -1,3 +1,3 @@
 # Sychar
 
-## A note taking tool for Bible Study.
+## A micro-blogging web application for Bible Study.
