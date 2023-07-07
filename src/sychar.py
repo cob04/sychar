@@ -46,19 +46,19 @@ def load_bible_translation(dataset_file: str) -> dict:
     return translation
 
 
-def read_bible_verse(translation: dict, verse_selection: Tuple[str, str, str]) -> str:
-    """Return a bible text given the book, chapter and verse.
+def read_bible_verse(translation: dict, verse_selection: Tuple[str, str, str]) -> Tuple[str, str, str]:
+    """Return a Bible verse text along with the book, chapter, and verse details.
 
     Args:
-        translation (dict): a dictionary of nested dictionaries for books, chapters
-            and verses.
-        verse_selection (tuple): a tuple containing the book, chapter and verse
-            e.g. ('Genesis', 1, 1)
+        translation (dict): a dictionary of nested dictionaries for books, chapters, and verses.
+        verse_selection (tuple): a tuple containing the book, chapter, and verse (e.g., ('Genesis', 1, 1))
+
     Returns:
-        (str): Text for the selected verse
+        tuple: A tuple containing the book, chapter, verse, and text for the selected verse.
     """
     book, chapter, verse = verse_selection
-    return translation[book][chapter][verse]
+    text = translation[book][chapter][verse]
+    return book, chapter, verse, text
 
 
 def get_args():
@@ -75,4 +75,13 @@ if __name__ == "__main__":
     args = get_args()
     translation = load_bible_translation("../datasets/kjv.json")
     verse_selection = (args.book, args.chapter, args.verse)
-    print(read_bible_verse(translation, verse_selection))
+    book, chapter, verse, text = read_bible_verse(translation, verse_selection)
+
+    verse_reference = f"{book} {chapter}:{verse} (KJV)"
+    print(f"{verse_reference}")
+    print(f"{text}")
+
+
+
+
+
